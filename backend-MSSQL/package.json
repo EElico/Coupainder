@@ -1,10 +1,11 @@
 {
-  "name": "node-js-crud-sql-server",
+  "name": "js-crud-sql-server",
   "version": "1.0.0",
   "description": "Node.js CRUD example with SQL Server",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [
     "node js",
@@ -15,7 +16,7 @@
     "sequelize",
     "rest api"
   ],
-  "author": "bezkoder",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
