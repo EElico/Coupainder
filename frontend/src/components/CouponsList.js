@@ -118,18 +118,27 @@ const CouponsList = () => {
               </label>{" "}
               {currentCoupon.title}
             </div>
-            <div>
+                  
+            <div> 
               <label>
-                <strong>Description:</strong>
+                <strong>Amount:</strong>
               </label>{" "}
-              {currentCoupon.description}
+              {currentCoupon.amount}{" "} <span className="ILS"> ₪</span>
             </div>
+
             <div>
               <label>
                 <strong>Status:</strong>
               </label>{" "}
-              {currentCoupon.published ? "Published" : "Pending"}
+              {currentCoupon.published ? "Valid" : "Expired"}
             </div>
+
+            <div>
+              <label>
+                <strong>Note:</strong>
+              </label>{" "}
+              {currentCoupon.description} 
+            </div> 
 
             <Link
               to={"/coupons/" + currentCoupon.id}

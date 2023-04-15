@@ -10,7 +10,8 @@ const Coupon = props => {
     id: null,
     title: "",
     description: "",
-    published: false
+    amount: 0,
+    published: true
   };
   const [currentCoupon, setCurrentCoupon] = useState(initialCouponState);
   const [message, setMessage] = useState("");
@@ -41,6 +42,7 @@ const Coupon = props => {
       id: currentCoupon.id,
       title: currentCoupon.title,
       description: currentCoupon.description,
+      amount: currentCoupon.amount,
       published: status
     };
 
@@ -93,9 +95,23 @@ const Coupon = props => {
                 onChange={handleInputChange}
               />
             </div>
+
             <div className="form-group">
-              <label htmlFor="description">Description</label>
+              <label htmlFor="amount">Amount</label>
               <input
+                type="text"
+                className="form-control"
+                id="amount"
+                name="amount"
+                value={currentCoupon.amount}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="description">Note</label>
+              <textarea
+                  //  "Note" equal to "description"
                 type="text"
                 className="form-control"
                 id="description"
@@ -109,7 +125,7 @@ const Coupon = props => {
               <label>
                 <strong>Status:</strong>
               </label>
-              {currentCoupon.published ? "Published" : "Pending"}
+              {currentCoupon.published ? "Valid" : "Expired"}
             </div>
           </form>
 
@@ -118,7 +134,7 @@ const Coupon = props => {
               className="badge badge-primary mr-2"
               onClick={() => updatePublished(false)}
             >
-              UnPublish
+              Valid
             </button>
           ) : (
             <button

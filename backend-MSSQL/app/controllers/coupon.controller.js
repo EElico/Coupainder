@@ -16,7 +16,8 @@ exports.create = (req, res) => {
   const coupon = {
     title: req.body.title,
     description: req.body.description,
-    published: req.body.published ? req.body.published : false
+    amount: req.body.amount,
+    published: req.body.published===false ? req.body.published : true
   };
 
   // Save Coupon in the database

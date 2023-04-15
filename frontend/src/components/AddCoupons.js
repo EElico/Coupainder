@@ -6,7 +6,8 @@ const AddCoupons = () => {
     id: null,
     title: "",
     description: "",
-    published: false
+    amount: null,// we can init it with null
+    published: true
   };
   const [coupon, setCoupon] = useState(initialCouponState);
   const [submitted, setSubmitted] = useState(false);
@@ -16,10 +17,12 @@ const AddCoupons = () => {
     setCoupon({ ...coupon, [name]: value });
   };
 
-  const saveCoupon = () => {
+  const saveCoupon = (event) => {
+    event.preventDefault();
     var data = {
       title: coupon.title,
-      description: coupon.description
+      description: coupon.description,
+      amount: coupon.amount
     };
 
     CouponDataService.create(data)
@@ -28,6 +31,7 @@ const AddCoupons = () => {
           id: response.data.id,
           title: response.data.title,
           description: response.data.description,
+          amount: response.data.amount,
           published: response.data.published
         });
         setSubmitted(true);
@@ -44,7 +48,7 @@ const AddCoupons = () => {
   };
 
   return (
-    <div className="submit-form">
+    <form onSubmit={saveCoupon} className="submit-form">
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
@@ -67,9 +71,26 @@ const AddCoupons = () => {
             />
           </div>
 
+    
+
           <div className="form-group">
-            <label htmlFor="description">Description</label>
+            <label htmlFor="amount">Amount</label>
             <input
+              // type="range"
+              // min="0" max="50"
+              type="float"
+              className="form-control"
+              id="amount"
+              required
+              defaultValue={coupon.amount}
+              onChange={handleInputChange}
+              name="amount"
+            />
+          </div> 
+          <div className="form-group">  
+            <label htmlFor="description">Note</label>  
+            <textarea  
+              //  "Note" equal to "description"
               type="text"
               className="form-control"
               id="description"
@@ -80,12 +101,12 @@ const AddCoupons = () => {
             />
           </div>
 
-          <button onClick={saveCoupon} className="btn btn-success">
+          <button type="submit" className="btn btn-success">
             Submit
           </button>
         </div>
       )}
-    </div>
+    </form>
   );
 };
 

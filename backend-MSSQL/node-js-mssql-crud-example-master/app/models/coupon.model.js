@@ -6,6 +6,9 @@ module.exports = (sequelize, Sequelize) => {
     description: {
       type: Sequelize.STRING
     },
+   amount: {
+      type: Sequelize.FLOAT
+    },
     published: {
       type: Sequelize.BOOLEAN
     }
