@@ -3,17 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@mui/material": "^5.12.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "antd": "^5.4.6",
     "axios": "^0.26.1",
     "bootstrap": "^4.6.0",
     "express": "^4.18.2",
     "mssql": "^9.1.1",
     "react": "^17.0.2",
+    "react-barcode": "^1.4.6",
     "react-dom": "^17.0.2",
+    "react-jsbarcode": "^0.2.4",
     "react-router-dom": "^6.2.2",
-    "react-scripts": "4.0.3"
+    "react-scripts": "4.0.3",
+    "sweetalert2": "^11.7.3"
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",

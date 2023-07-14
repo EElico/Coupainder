@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import CouponDataService from "../services/CouponService";
 import { Link } from "react-router-dom";
+import Barcode from 'react-barcode';
+import Swal from 'sweetalert2';
+
 
 const CouponsList = () => {
   const [coupons, setCoupons] = useState([]);
@@ -18,7 +21,7 @@ const CouponsList = () => {
   };
 
   const retrieveCoupons = () => {
-    CouponDataService.getAll()
+    CouponDataService.getAll({userid:localStorage.getItem("userID")})
       .then(response => {
         setCoupons(response.data);
         console.log(response.data);
@@ -61,6 +64,27 @@ const CouponsList = () => {
       });
   };
 
+  function confirmAndRemoveAllCoupons() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeAllCoupons();
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
+
   return (
     <div className="list row">
       <div className="col-md-8">
@@ -102,10 +126,9 @@ const CouponsList = () => {
         </ul>
 
         <button
-          className="m-3 btn btn-sm btn-danger"
-          onClick={removeAllCoupons}
-        >
-          Remove All
+          className="m-3 btn btn-sm btn-danger "
+          onClick={confirmAndRemoveAllCoupons}>
+          Remove All Coupones
         </button>
       </div>
       <div className="col-md-6">
@@ -118,7 +141,14 @@ const CouponsList = () => {
               </label>{" "}
               {currentCoupon.title}
             </div>
-                  
+
+            <div>
+              <label>
+                <strong>Coupon Code:</strong>
+              </label>{" "}
+              {currentCoupon.code}
+            </div>
+
             <div> 
               <label>
                 <strong>Amount:</strong>
@@ -146,6 +176,14 @@ const CouponsList = () => {
             >
               Edit
             </Link>
+
+            <div className="Barcode"> 
+            {/* https://www.npmjs.com/package/react-barcode */}
+
+            <Barcode value={currentCoupon.code} lineColor={"#42438f"} background={"#e8ecec"} height={75} width={2} textMargin={10} />,
+            </div>
+
+
           </div>
         ) : (
           <div>

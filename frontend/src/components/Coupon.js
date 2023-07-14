@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import CouponDataService from "../services/CouponService";
+import Swal from 'sweetalert2';
+
 
 const Coupon = props => {
   const { id } = useParams();
@@ -10,6 +12,8 @@ const Coupon = props => {
     id: null,
     title: "",
     description: "",
+    code: "",
+    coupuser: "", 
     amount: 0,
     published: true
   };
@@ -42,6 +46,8 @@ const Coupon = props => {
       id: currentCoupon.id,
       title: currentCoupon.title,
       description: currentCoupon.description,
+      code: currentCoupon.code,
+      coupuser:currentCoupon.coupuser,
       amount: currentCoupon.amount,
       published: status
     };
@@ -67,6 +73,29 @@ const Coupon = props => {
       });
   };
 
+
+  function confirmAndRemoveCoupons() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteCoupon();
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
+
+
   const deleteCoupon = () => {
     CouponDataService.remove(currentCoupon.id)
       .then(response => {
@@ -90,6 +119,7 @@ const Coupon = props => {
                 type="text"
                 className="form-control"
                 id="title"
+                required
                 name="title"
                 value={currentCoupon.title}
                 onChange={handleInputChange}
@@ -97,11 +127,25 @@ const Coupon = props => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="amount">Amount</label>
+              <label htmlFor="title">Coupon Code</label>
               <input
                 type="text"
                 className="form-control"
+                id="code"
+                required
+                name="code"
+                value={currentCoupon.code}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="amount">Amount</label>
+              <input
+                type="number"
+                className="form-control"
                 id="amount"
+                required
                 name="amount"
                 value={currentCoupon.amount}
                 onChange={handleInputChange}
@@ -145,10 +189,9 @@ const Coupon = props => {
             </button>
           )}
 
-          <button className="badge badge-danger mr-2" onClick={deleteCoupon}>
+          <button className="badge badge-danger mr-2" onClick={confirmAndRemoveCoupons}>
             Delete
           </button>
-
           <button
             type="submit"
             className="badge badge-success"

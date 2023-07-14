@@ -1,6 +1,10 @@
 const db = require("../models");
 const Coupon = db.coupons;
+const User = db.user;
+
 const Op = db.Sequelize.Op;
+
+
 
 // Create and Save a new Coupon
 exports.create = (req, res) => {
@@ -16,8 +20,10 @@ exports.create = (req, res) => {
   const coupon = {
     title: req.body.title,
     description: req.body.description,
+    code: req.body.code,
     amount: req.body.amount,
-    published: req.body.published===false ? req.body.published : true
+    coupuser: req.body.coupuser,
+    published: req.body.published === false ? req.body.published : true
   };
 
   // Save Coupon in the database
@@ -38,7 +44,11 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-  Coupon.findAll({ where: condition })
+  const coupuser = req.body.userid;
+
+ const where={where:condition?{[Op.and]:[condition,{coupuser:{[Op.eq]:coupuser}}]}:{coupuser}}
+
+  Coupon.findAll(where)
     .then(data => {
       res.send(data);
     })

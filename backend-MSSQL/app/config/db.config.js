@@ -1,12 +1,10 @@
 module.exports = {
   HOST: "localhost",
-  PORT: "1433",//edit
-  USER: "sa",//edit
-  PASSWORD: "eli123456",//edit
-  // server:"DESKTOP-DPVPB74",
-  DB: "Coupainder",//TODO: edit //#name
+  PORT: "1433",
+  USER: "sa",
+  PASSWORD: "eli123456",
+  DB: "Coupainder",
   dialect: "mssql",
-  // driver: 'msnodesqlv8',
   pool: {
     max: 5,
     min: 0,

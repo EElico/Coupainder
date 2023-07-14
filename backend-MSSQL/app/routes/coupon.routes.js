@@ -7,7 +7,7 @@ module.exports = app => {
   router.post("/", coupons.create);
 
   // Retrieve all Coupons
-  router.get("/", coupons.findAll);
+  router.post("/getall", coupons.findAll);
 
   // Retrieve all published Coupons
   router.get("/published", coupons.findAllPublished);

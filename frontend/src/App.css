@@ -18,3 +18,46 @@
   font-size: large;
   font-variant-caps: normal
 }
+
+
+.App {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.Nav{
+background-color: rgb(97, 232, 241);
+  color: aqua;
+    position: fixed;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  
+  
+}
+
+
+.bg-image {
+  background-image: url('./assets/ADV.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 4rem;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  z-index: -1;
+  object-fit: cover;
+}
+
+#copyright {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 10px;
+  background-color: #f1f1f1;
+}

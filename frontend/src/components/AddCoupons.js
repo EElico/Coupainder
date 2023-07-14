@@ -6,7 +6,9 @@ const AddCoupons = () => {
     id: null,
     title: "",
     description: "",
-    amount: null,// we can init it with null
+    code: "",
+    coupuser: localStorage.getItem("userID"),  
+    amount: null,
     published: true
   };
   const [coupon, setCoupon] = useState(initialCouponState);
@@ -22,6 +24,8 @@ const AddCoupons = () => {
     var data = {
       title: coupon.title,
       description: coupon.description,
+      code: coupon.code,
+      coupuser: coupon.coupuser,
       amount: coupon.amount
     };
 
@@ -31,6 +35,8 @@ const AddCoupons = () => {
           id: response.data.id,
           title: response.data.title,
           description: response.data.description,
+          code: response.data.code,
+          coupuser: response.data.coupuser,
           amount: response.data.amount,
           published: response.data.published
         });
@@ -51,7 +57,7 @@ const AddCoupons = () => {
     <form onSubmit={saveCoupon} className="submit-form">
       {submitted ? (
         <div>
-          <h4>You submitted successfully!</h4>
+          <h4>Coupon submitted successfully!</h4>
           <button className="btn btn-success" onClick={newCoupon}>
             Add
           </button>
@@ -71,18 +77,29 @@ const AddCoupons = () => {
             />
           </div>
 
-    
+          <div className="form-group">
+            <label htmlFor="title">Coupon Code</label>
+            <input
+              type="text"
+              className="form-control"
+              id="code"
+              required
+              value={coupon.code}
+              onChange={handleInputChange}
+              name="code"
+            />
+          </div>
 
           <div className="form-group">
             <label htmlFor="amount">Amount</label>
             <input
               // type="range"
               // min="0" max="50"
-              type="float"
+              type="number"
               className="form-control"
               id="amount"
               required
-              defaultValue={coupon.amount}
+              Value={coupon.amount}
               onChange={handleInputChange}
               name="amount"
             />
@@ -94,7 +111,7 @@ const AddCoupons = () => {
               type="text"
               className="form-control"
               id="description"
-              required
+              //required
               value={coupon.description}
               onChange={handleInputChange}
               name="description"

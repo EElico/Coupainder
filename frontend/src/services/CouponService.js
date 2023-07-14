@@ -1,7 +1,7 @@
 import http from "../http-common";
 
-const getAll = () => {
-  return http.get("/coupons");
+const getAll = (data) => {
+  return http.post("/coupons/getall",data);
 };
 
 const get = id => {
@@ -25,7 +25,7 @@ const removeAll = () => {
 };
 
 const findByTitle = title => {
-  return http.get(`/coupons?title=${title}`);
+  return http.post(`/coupons/getall?title=${title}`,{userid:localStorage.getItem("userID")});
 };
 
 const CouponService = {

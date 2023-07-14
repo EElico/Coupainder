@@ -6,6 +6,13 @@ module.exports = (sequelize, Sequelize) => {
     description: {
       type: Sequelize.STRING
     },
+    code: {
+      type: Sequelize.STRING
+    },
+    coupuser: {
+      type: Sequelize.STRING
+    },
+    
     amount: {
       type: Sequelize.FLOAT
     },
